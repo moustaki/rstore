@@ -19,8 +19,12 @@ query(SQL, Results) :-
     odbc_query(store, SQL, Results).
 
 uri_to_id(URI, ID) :-
-    table_column(T, Column), % for some reason, forcing Column = 'uri' does not backtrack correctly
-    Column = 'uri', 
-    sformat(SQL, 'SELECT id FROM `~w` WHERE uri = \'~w\'', [T, URI]),
-    query(SQL, row(ID)).
+    %table_column(T, Column), % for some reason, forcing Column = 'uri' does not backtrack correctly
+    %Column = 'uri', 
+    sformat(SQL, 'SELECT id FROM `owl:Thing` WHERE uri = \'~w\'', [URI]),
+    query(SQL, row(ID)), !.
+uri_to_id(URI, ID) :-
+    sformat(SQL, 'REPLACE INTO `owl:Thing` (`uri`) VALUES (\'~w\')', [URI]),
+    query(SQL, _),
+    uri_to_id(URI, ID).
 
