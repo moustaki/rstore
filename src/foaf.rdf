@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Hi there! Here is my FOAF profile-->
+<rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:wot="http://xmlns.com/wot/0.1/"
+      xmlns:admin="http://webns.net/mvcb/"
+      xmlns:owl="http://www.w3.org/2002/07/owl#"
+      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<foaf:PersonalProfileDocument rdf:about="">
+		<foaf:maker rdf:resource="#moustaki"/>
+		<foaf:primaryTopic rdf:resource="#moustaki"/>
+	</foaf:PersonalProfileDocument>
+	<foaf:Group rdf:ID="c4dm">
+		<foaf:name>Centre for Digital Music</foaf:name>
+		<foaf:logo rdf:resource="http://moustaki.org/img/c4dm.jpg"/>
+		<foaf:homepage rdf:resource="http://www.elec.qmul.ac.uk/digitalmusic/"/>
+		<dc:title>Centre for Digital Music</dc:title>
+		<dc:description>	
+		Our research into technologies for audio and music 
+		has a long and successful history, 
+		starting with Mark Sandler’s PhD in 
+		Digital Power Amplification in 1984. 
+		Today, digital amplifier chips broadly 
+		similar to the team’s proposals of the 
+		early 1990s are finding a healthy take-up 
+		in a variety of consumer goods from DVD players to laptops.
+		Our research covers the field of Music and Audio Technology from 
+		record/replay equipment in the home or studio, to the simulation
+		and synthesis of instruments and voices, acoustic space simulation, 
+		music understanding, delivery and retrieval. The developing role of 
+		MPEG standards and the convergence of computers, communications 
+		and signal processing in Multimedia mean that broadcast, 
+		transmission, coding and storage of audio and music will 
+		pervade our work for the coming years. The interface between 
+		audio and music, and representations for them both form a particular current focus for our work.
+		</dc:description>
+	</foaf:Group>
+	<owl:Class rdf:about="#Cat">
+	  <rdfs:label>Cat</rdfs:label>
+	  <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+	  <foaf:img rdf:resource="http://farm3.static.flickr.com/2653/3726362156_558c0edfa6.jpg?v=0"/>
+	</owl:Class>
+	<rdf:Description rdf:about="#cat">
+	  <rdfs:label>My cat, we're still looking for a name!</rdfs:label>
+	  <rdf:type rdf:resource="http://moustaki.org/foaf.rdf#Cat"/>
+	</rdf:Description>
+	<foaf:Person rdf:about="#moustaki">
+		<!--<owl:sameAs rdf:resource="http://openfriendformat.com/foaf/gen.php?account=moustaki&avatars=true&network=delicious#me"/>
+		<owl:sameAs rdf:resource="http://openfriendformat.com/foaf/gen.php?account=moustaki&avatars=true&network=lastfm#me"/>-->
+		<foaf:nick>moustaki</foaf:nick>
+		<owl:sameAs rdf:resource="http://dbtune.org/last-fm/moustaki"/>
+		<owl:sameAs rdf:resource="http://data.semanticweb.org/conference/person-30010"/>
+		<owl:sameAs rdf:resource="http://dblp.l3s.de/d2r/resource/authors/Yves_Raimond"/>
+		<owl:sameAs rdf:resource="http://community.linkeddata.org/dataspace/person/moustaki#this"/>
+		<dc:description>
+		I am currently a Senior Software Engineer at BBC Audio &amp; Music interactive, where I work on BBC Programmes. Before October 2008, I was a PhD student in the Centre for Digital Music, Queen Mary, University of London.
+		My submitted thesis deals with ontology-based knowledge management for music information retrieval systems.
+		I graduated in 2005 from the ENST (Ecole Nationale Superieure des Telecommunications), Paris, France.
+		I am interested in music, music technologies, digital signal processing, open-source and (obviously) semantic-web technologies.
+		So I guess the work I am doing makes some kind of sense!
+		</dc:description>
+		<foaf:openid rdf:resource="http://moustaki.myopenid.com/"/>
+		<foaf:weblog rdf:resource="http://blog.dbtune.org/"/>
+		<foaf:name>Yves Raimond</foaf:name>
+		<foaf:title>Mr</foaf:title>
+		<foaf:givenname>Yves</foaf:givenname>
+		<foaf:family_name>Raimond</foaf:family_name>
+		<foaf:img rdf:resource="http://moustaki.org/img/me.jpg"/>
+		<foaf:nick>moustaki</foaf:nick>
+		<foaf:mbox>yves.igetenoughspam.raimond_at_gmail.com</foaf:mbox>
+		<foaf:homepage rdf:resource="http://moustaki.org"/>
+		<foaf:workplaceHomepage rdf:resource="http://www.elec.qmul.ac.uk/digitalmusic/"/>
+		<foaf:member rdf:resource="#c4dm"/>
+		<foaf:geekcode>
+			Version: 3.12
+			GCS d-- s+++:- a- C+++ UL+++ P L++ E--- W++ N- o- K- w--
+			O---- M- V-- PS+++ PE- Y PGP---- t-- 5 X-- R* !tv b+ DI++ D+++
+			G-- e+++ h- r++ y
+		</foaf:geekcode>
+		<wot:pubkeyAddress rdf:resource="http://moustaki.org/yves.gpg"/>
+		<foaf:based_near>
+			<!--Not too sure about this... But it should be around E8 hopefully:-)-->
+			<geo:Point>
+				<geo:lat>51.53758</geo:lat>
+				<geo:long>-0.068407</geo:long>
+			</geo:Point>
+		</foaf:based_near>
+		<foaf:jabberID>yves.igetenoughspam.raimond_at_gmail.com</foaf:jabberID>
+		<foaf:currentProject rdf:resource="http://moustaki.org/projects.rdf#kmf/"/>
+                <foaf:fundedBy rdf:resource="http://www.dcs.qmul.ac.uk/"/>
+                <foaf:fundedBy rdf:resource="http://www.elec.qmul.ac.uk/"/>
+		<foaf:publications rdf:resource="http://moustaki.org/pubs/index.html"/>
+		<foaf:knows rdf:resource="http://danbri.org/foaf.rdf#danbri"/>
+		<foaf:knows rdf:resource="http://mmt.me.uk/foaf.rdf#mischa"/>
+		<foaf:knows rdf:resource="http://www.aelius.com/njh#me"/>
+        <foaf:knows rdf:resource="http://barkingiguana.com/~craig/foaf.rdf"/>
+		<foaf:knows rdf:resource="http://captsolo.net/semweb/foaf-captsolo.rdf#Uldis_Bojars"/>
+		<foaf:knows rdf:resource="http://www.metade.org/foaf.rdf#me"/>
+		<foaf:knows rdf:resource="http://www.advogato.org/person/crhodes/foaf.rdf#me"/>
+		<foaf:knows rdf:resource="http://beckr.org#chris"/>
+		<foaf:knows rdf:resource="http://www.advogato.org/person/cannam/foaf.rdf#me"/>
+		<foaf:knows rdf:resource="http://hublog.hubmed.org/foaf.xml#i"/>
+		<foaf:knows rdf:resource="http://kurtisrandom.com/foaf.rdf#kurtjx"/>
+		<foaf:knows rdf:resource="http://chrissutton.org/me"/>
+		<foaf:knows rdf:resource="http://www.scharffe.fr/foaf.rdf#me"/>
+		<foaf:knows rdf:resource="http://foafing-the-music.iua.upf.edu/data/foaf/blogger/ocelma.rdf#me"/>
+		<foaf:knows rdf:resource="http://www.ivan-herman.net/Ivan_Herman"/>
+		<foaf:knows rdf:resource="http://sw-app.org/mic.xhtml#i"/>
+		<foaf:knows rdf:resource="http://kmi.open.ac.uk/people/tom/"/>
+		<foaf:knows rdf:resource="http://www4.wiwiss.fu-berlin.de/is-group/resource/persons/Person4"/>
+		<foaf:knows rdf:resource="http://richard.cyganiak.de/foaf.rdf#cygri"/>
+		<foaf:knows rdf:resource="http://kmi.open.ac.uk/people/tom/"/>
+			<!--<foaf:Person>
+				<foaf:name>Ivan Herman</foaf:name>
+				<foaf:mbox_sha1sum>5ac8032d5f6012aa1775ea2f63e1676bafd5e80b</foaf:mbox_sha1sum>
+				<rdfs:seeAlso rdf:resource="http://www.ivan-herman.net/Ivan_Herman"/>
+			</foaf:Person>
+		</foaf:knows>-->
+		<foaf:knows rdf:resource="http://fgiasson.com/me/"/>
+		<!--<foaf:knows xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rel="http://www.perceive.net/schemas/relationship/">
+			<foaf:Person rdf:about="http://www.uni-koblenz.de/~staab/foaf.rdf#me">
+				<foaf:name>Steffen Staab</foaf:name>
+				<foaf:mbox_sha1sum>ae8f32f31b69df2872d4c5d2e3bf21cf09cadf90</foaf:mbox_sha1sum>
+				<foaf:homepage rdf:resource="http://www.uni-koblenz.de/~staab"/>
+        			<rdfs:seeAlso rdf:resource="http://www.uni-koblenz.de/~staab/foaf.rdf"/>
+      			</foaf:Person>
+    		</foaf:knows>-->
+	</foaf:Person>
+</rdf:RDF>
