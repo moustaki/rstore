@@ -1,4 +1,4 @@
-:- module(rdf2rdb).
+:- module(rdf2rdb, [load_rdf_in_db/2, reduce/2, expand/2]).
 
 :- use_module(library('rdf')).
 :- use_module(library('odbc')).
@@ -33,12 +33,23 @@ handle_triples([rdf(S,P,O)|T], Ns) :-
     ),
     handle_triples(T, Ns).
 
-reduce(literal(L), literal(L)) :- !.
 reduce(URI, Short) :-
+    atomic(URI),
     namespace(S, L),
     atom_concat(L, Suffix, URI),
     atomic_list_concat([S, ':', Suffix], Short), !.
-reduce(URI, URI).
+reduce(Var1, Var2) :-
+    var(Var1), var(Var2), !.
+reduce(Term, Term).
+
+expand(Short, URI) :-
+    atomic(Short),
+    namespace(S, L),
+    atomic_list_concat([S, Suffix], ':', Short),
+    atom_concat(L, Suffix, URI), !.
+expand(Var1, Var2) :-
+    var(Var1), var(Var2), !.
+expand(Term, Term).
 
 handle_namespaces([],[]) :- !.
 handle_namespaces([Short=Long|Tail], [Short=Long|Rest]) :-
