@@ -12,6 +12,7 @@ load_rdf_in_db(File, URI) :-
     handle_namespaces(N,Namespaces),
     handle_triples(Triples, Namespaces).
 
+
 handle_triples([], _) :- !.
 handle_triples([rdf(S,P,O)|T], Ns) :-
     reduce(S,SS),

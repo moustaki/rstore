@@ -1,6 +1,7 @@
-:- module(rdb_entailment).
+:- module(rdb_entailment, []).
 
 :- use_module(rdf2rdb).
+:- use_module(rdb).
 :- use_module(library('semweb/rdf_db'),
               [ rdf_global_id/2,
                 rdf_reachable/3,
@@ -11,7 +12,6 @@
                 rdf_equal/2
               ]).
 :- use_module('SeRQL/sparql_runtime.pl').
-
 
 rdf(S, P, O) :-
     reduce(S, SS),
