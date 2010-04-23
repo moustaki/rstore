@@ -120,11 +120,14 @@ triple_schema_change(rdf(_, Property, _), SQL) :-
         `lang`           varchar(255) DEFAULT NULL,
         `object_id`      int(11) DEFAULT NULL,
         PRIMARY KEY (`id`),
+        UNIQUE KEY (`subject_id`, `value`(10)),
+        UNIQUE KEY (`subject_id`, `object_id`),
         KEY `index_~w_on_subject_id` (`subject_id`),
         KEY `index_~w_on_object_id` (`object_id`),
         KEY `index_~w_on_lang` (`lang`),
+        KEY `index_~w_on_value` (`value`(10)),
         INDEX `index_~w_on_subject_id_and_object_id` (`subject_id`, `object_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property,Property]), 
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property,Property,Property,Property]), 
     % WARNING - writing to the cache just before the change is actually applied
     add_table_to_cache(Property), !.
 % ...and that's all we need for now
