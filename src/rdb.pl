@@ -6,6 +6,7 @@
 :- dynamic cached_table_column/2.
 
 connect(DSN) :-
+        empty_cache,
         odbc_connect(DSN, _, [
             user(root),
             alias(store),
@@ -19,6 +20,9 @@ table(T) :-
 table_column(T, C) :-
     cached_table_column(T, C).
 
+empty_cache :-
+    retractall(cached_table(_)),
+    retractall(cached_table_column(_, _)).
 cache_schema :-
     forall(odbc_current_table(store, T), add_table_to_cache(T)),
     forall(odbc_table_column(store, T, C), add_table_column_to_cache(T, C)).

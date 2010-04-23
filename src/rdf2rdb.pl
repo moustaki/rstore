@@ -113,15 +113,18 @@ triple_schema_change(rdf(_, 'rdf:type', Object), SQL) :-
 triple_schema_change(rdf(_, Property, _), SQL) :-
     \+ table(Property),
     sformat(SQL, 'CREATE TABLE `~w` (
-        `id`         int(11) NOT NULL auto_increment,
-        `subject_id` int(11) NOT NULL,
-        `value`      text    DEFAULT NULL,
-        `object_id`  int(11) DEFAULT NULL,
+        `id`             int(11) NOT NULL auto_increment,
+        `subject_id`     int(11) NOT NULL,
+        `value`          text    DEFAULT NULL,
+        `xsd_type`       varchar(255) DEFAULT NULL,
+        `lang`           varchar(255) DEFAULT NULL,
+        `object_id`      int(11) DEFAULT NULL,
         PRIMARY KEY (`id`),
         KEY `index_~w_on_subject_id` (`subject_id`),
         KEY `index_~w_on_object_id` (`object_id`),
+        KEY `index_~w_on_lang` (`lang`),
         INDEX `index_~w_on_subject_id_and_object_id` (`subject_id`, `object_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), 
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property,Property]), 
     % WARNING - writing to the cache just before the change is actually applied
     add_table_to_cache(Property), !.
 % ...and that's all we need for now
@@ -135,12 +138,27 @@ triple_insert(rdf(S, 'rdf:type', O), SQL) :-
      sformat(SQL, 'REPLACE INTO `owl:Thing` (`uri`) VALUES (\'~w\')', [S])).
 % untyped literal insert
 triple_insert(rdf(S, P, literal(L)), SQL) :-
+    \+(L = type(_,_)),
+    \+(L = lang(_,_)),
     !,
     table(P),
-    \+(L = type(_,_)),
     uri_to_id(S, ID),
     sanitise(L, LL),
     sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`) VALUES (\'~w\', \'~w\')', [P, ID, LL]).
+% generic typed literal insert
+triple_insert(rdf(S, P, literal(type(T, V))), SQL) :-
+    !,
+    table(P),
+    uri_to_id(S, ID),
+    sanitise(V, VV),
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `xsd_type`) VALUES (\'~w\', \'~w\', \'~w\')', [P, ID, VV, T]).
+% generic lang literal insert
+triple_insert(rdf(S, P, literal(lang(L, V))), SQL) :-
+    !,
+    table(P),
+    uri_to_id(S, ID),
+    sanitise(V, VV),
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `lang`) VALUES (\'~w\', \'~w\', \'~w\')', [P, ID, VV, L]).
 % object property
 triple_insert(rdf(S,P,O), SQL) :-
     !,
