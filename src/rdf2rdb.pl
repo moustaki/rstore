@@ -147,26 +147,26 @@ triple_insert(rdf(S, P, literal(L)), SQL) :-
     table(P),
     uri_to_id(S, ID),
     sanitise(L, LL),
-    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`) VALUES (\'~w\', \'~w\')', [P, ID, LL]).
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`) VALUES (~w, \'~w\')', [P, ID, LL]).
 % generic typed literal insert
 triple_insert(rdf(S, P, literal(type(T, V))), SQL) :-
     !,
     table(P),
     uri_to_id(S, ID),
     sanitise(V, VV),
-    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `xsd_type`) VALUES (\'~w\', \'~w\', \'~w\')', [P, ID, VV, T]).
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `xsd_type`) VALUES (~w, \'~w\', \'~w\')', [P, ID, VV, T]).
 % generic lang literal insert
 triple_insert(rdf(S, P, literal(lang(L, V))), SQL) :-
     !,
     table(P),
     uri_to_id(S, ID),
     sanitise(V, VV),
-    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `lang`) VALUES (\'~w\', \'~w\', \'~w\')', [P, ID, VV, L]).
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `value`, `lang`) VALUES (~w, \'~w\', \'~w\')', [P, ID, VV, L]).
 % object property
 triple_insert(rdf(S,P,O), SQL) :-
     !,
     table(P),
     uri_to_id(S, SID),
     uri_to_id(O, OID),
-    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `object_id`) VALUES (\'~w\', \'~w\')', [P, SID, OID]).
+    sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `object_id`) VALUES (~w, ~w)', [P, SID, OID]).
 
