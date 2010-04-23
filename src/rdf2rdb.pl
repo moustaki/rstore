@@ -109,26 +109,14 @@ triple_schema_change(rdf(_, 'rdf:type', Object), SQL) :-
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Object,Object]), 
     % WARNING - writing to the cache just before the change is actually applied
     add_table_to_cache(Object), !.
-% adding an untyped literal property
-triple_schema_change(rdf(_, Property, literal(L)), SQL) :-
-    \+(L = type(_,_)),
+% adding a property
+triple_schema_change(rdf(_, Property, _), SQL) :-
     \+ table(Property),
     sformat(SQL, 'CREATE TABLE `~w` (
         `id`         int(11) NOT NULL auto_increment,
         `subject_id` int(11) NOT NULL,
-        `value`      text    NOT NULL,
-        PRIMARY KEY (`id`),
-        KEY `index_~w_on_subject_id` (`subject_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), 
-    % WARNING - writing to the cache just before the change is actually applied
-    add_table_to_cache(Property), !.
-% adding an object property
-triple_schema_change(rdf(_, Property, _), SQL) :-
-    \+ table(Property), 
-    sformat(SQL, 'CREATE TABLE `~w` (
-        `id`         int(11) NOT NULL auto_increment,
-        `subject_id` int(11) NOT NULL,
-        `object_id`  int(11) NOT NULL,
+        `value`      text    DEFAULT NULL,
+        `object_id`  int(11) DEFAULT NULL,
         PRIMARY KEY (`id`),
         KEY `index_~w_on_subject_id` (`subject_id`),
         KEY `index_~w_on_object_id` (`object_id`),
