@@ -100,25 +100,32 @@ namespace(Short, Long) :-
 % adding a type
 triple_schema_change(rdf(_, 'rdf:type', Object), SQL) :-
     !,
-    sformat(SQL, 'CREATE TABLE IF NOT EXISTS `~w` (
+    \+ table(Object),
+    sformat(SQL, 'CREATE TABLE `~w` (
         `id`  int(11)      NOT NULL auto_increment,
         `uri` varchar(255) NOT NULL,
         PRIMARY KEY (`id`),
         UNIQUE KEY `index_~w_on_uri` (`uri`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Object,Object]), !.
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Object,Object]), 
+    % WARNING - writing to the cache just before the change is actually applied
+    add_table_to_cache(Object), !.
 % adding an untyped literal property
 triple_schema_change(rdf(_, Property, literal(L)), SQL) :-
     \+(L = type(_,_)),
-    sformat(SQL, 'CREATE TABLE IF NOT EXISTS `~w` (
+    \+ table(Property),
+    sformat(SQL, 'CREATE TABLE `~w` (
         `id`         int(11) NOT NULL auto_increment,
         `subject_id` int(11) NOT NULL,
         `value`      text    NOT NULL,
         PRIMARY KEY (`id`),
         KEY `index_~w_on_subject_id` (`subject_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), !.
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), 
+    % WARNING - writing to the cache just before the change is actually applied
+    add_table_to_cache(Property), !.
 % adding an object property
 triple_schema_change(rdf(_, Property, _), SQL) :-
-    sformat(SQL, 'CREATE TABLE IF NOT EXISTS `~w` (
+    \+ table(Property), 
+    sformat(SQL, 'CREATE TABLE `~w` (
         `id`         int(11) NOT NULL auto_increment,
         `subject_id` int(11) NOT NULL,
         `object_id`  int(11) NOT NULL,
@@ -126,7 +133,9 @@ triple_schema_change(rdf(_, Property, _), SQL) :-
         KEY `index_~w_on_subject_id` (`subject_id`),
         KEY `index_~w_on_object_id` (`object_id`),
         INDEX `index_~w_on_subject_id_and_object_id` (`subject_id`, `object_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), !.
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8', [Property,Property,Property,Property]), 
+    % WARNING - writing to the cache just before the change is actually applied
+    add_table_to_cache(Property), !.
 % ...and that's all we need for now
 
 % handling triple insert

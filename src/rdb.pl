@@ -1,19 +1,32 @@
-:- module(rdb, [connect/1,table/1,table_column/2,query/2,uri_to_id/2, sanitise/2]).
+:- module(rdb, [connect/1,table/1,table_column/2,query/2,uri_to_id/2, sanitise/2, add_table_to_cache/1, add_table_column_to_cache/2]).
 
 :- use_module(library(odbc)).
 
+:- dynamic cached_table/1.
+:- dynamic cached_table_column/2.
+
 connect(DSN) :-
         odbc_connect(DSN, _, [
-        user(root),
-        alias(store),
-        open(once)
-    ]).
+            user(root),
+            alias(store),
+            open(once)
+        ]),
+        cache_schema.
 
 table(T) :-
-    odbc_current_table(store, T).
+    cached_table(T).
 
 table_column(T, C) :-
-    odbc_table_column(store, T, C).
+    cached_table_column(T, C).
+
+cache_schema :-
+    forall(odbc_current_table(store, T), add_table_to_cache(T)),
+    forall(odbc_table_column(store, T, C), add_table_column_to_cache(T, C)).
+
+add_table_to_cache(T) :-
+    assert(cached_table(T)).
+add_table_column_to_cache(T, C) :-
+    assert(cached_table_column(T, C)).
 
 query(SQL, Results) :-
     odbc_query(store, SQL, Results).
