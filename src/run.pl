@@ -1,4 +1,4 @@
-#!/usr/local/bin/pl -G32M -T32M -L32M -s
+#!/usr/local/bin/pl -G256M -T256M -L256M -s
 
 :- use_module('rdb').
 :- use_module('rdb_entailment').
