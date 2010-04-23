@@ -152,9 +152,3 @@ triple_insert(rdf(S,P,O), SQL) :-
     uri_to_id(O, OID),
     sformat(SQL, 'REPLACE INTO `~w` (`subject_id`, `object_id`) VALUES (\'~w\', \'~w\')', [P, SID, OID]).
 
-sanitise(L, LL) :-
-    replace(L, '\'', '\\\'', L1),
-    replace(L1, '’', '\\\'', LL).
-replace(S, C, R, Result) :-
-    atomic_list_concat(List, C, S),
-    atomic_list_concat(List, R, Result).
